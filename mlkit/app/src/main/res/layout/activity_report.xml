@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3F51B5"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:title="Transaction History"
+        app:titleTextColor="#FFFFFF" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/reportText1"
+                android:layout_weight="1"
+                android:background="#FFFFFF"
+                android:gravity="center"
+                android:padding="18dip"
+                android:text="From"
+                android:textColor="#000000"
+                android:textSize="40px" />
+
+            <EditText
+                android:id="@+id/reportEditText1"
+                android:layout_weight="1"
+                android:background="#FFFFFF"
+                android:focusable="false"
+                android:padding="18dip"
+                android:text="Date"
+                android:gravity="center"
+                android:textColor="#999191"
+                android:textSize="40px" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/reportText2"
+                android:layout_weight="1"
+                android:background="#FFFFFF"
+                android:gravity="center"
+                android:padding="18dip"
+                android:text="To"
+                android:textColor="#000000"
+                android:textSize="40px" />
+
+            <EditText
+                android:id="@+id/reportEditText2"
+                android:layout_weight="1"
+                android:background="#FFFFFF"
+                android:focusable="false"
+                android:padding="18dip"
+                android:text="Date"
+                android:gravity="center"
+                android:textColor="#999191"
+                android:textSize="40px" />
+        </TableRow>
+
+        <Button
+            android:id="@+id/getdata"
+            android:layout_width="239dp"
+            android:layout_height="wrap_content"
+            android:text="Get data" />
+
+
+    </TableLayout>
+
+
+</LinearLayout>

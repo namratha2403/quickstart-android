@@ -27,14 +27,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
-import android.widget.Spinner;
 
 import com.google.android.gms.common.annotation.KeepName;
 import com.google.firebase.samples.apps.mlkit.R;
@@ -48,6 +44,9 @@ import com.google.firebase.samples.apps.mlkit.java.cloudtextrecognition.CloudTex
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.google.firebase.samples.apps.mlkit.java.cloudtextrecognition.CloudDocumentTextRecognitionProcessor.date;
+import static com.google.firebase.samples.apps.mlkit.java.cloudtextrecognition.CloudDocumentTextRecognitionProcessor.finalAmount;
 
 /** Activity demonstrating different image detector features with a still image from camera. */
 @KeepName
@@ -76,6 +75,8 @@ public final class StillImageActivity extends AppCompatActivity {
   private static final int REQUEST_CHOOSE_IMAGE = 1002;
 
   private Button getImageButton;
+  private Button enter;
+  private Button report;
   private ImageView preview;
   private GraphicOverlay graphicOverlay;
   private String selectedMode = CLOUD_LABEL_DETECTION;
@@ -126,6 +127,7 @@ public final class StillImageActivity extends AppCompatActivity {
             popup.show();
           }
         });
+
     preview = findViewById(R.id.previewPane);
     if (preview == null) {
       Log.d(TAG, "Preview is null");
@@ -153,63 +155,96 @@ public final class StillImageActivity extends AppCompatActivity {
         tryReloadAndDetectInImage();
       }
     }
+
+    report  = findViewById(R.id.report);
+    enter  = findViewById(R.id.enter);
+
+    enter.setOnClickListener(
+            new OnClickListener() {
+              @Override
+              public void onClick(View view) {
+                Intent myIntent = new Intent(StillImageActivity.this, DataEntry.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("date", date);
+                bundle.putString("amount",finalAmount);
+                myIntent.putExtras(bundle);
+                StillImageActivity.this.startActivity(myIntent);
+              }
+            }
+    );
+
+    report.setOnClickListener(
+            new OnClickListener() {
+              @Override
+              public void onClick(View view) {
+                Intent myIntent = new Intent(StillImageActivity.this, Report.class);
+                StillImageActivity.this.startActivity(myIntent);
+              }
+            }
+    );
   }
 
   private void populateFeatureSelector() {
-    Spinner featureSpinner = findViewById(R.id.featureSelector);
-    List<String> options = new ArrayList<>();
-    options.add(CLOUD_LABEL_DETECTION);
-    options.add(CLOUD_LANDMARK_DETECTION);
-    options.add(CLOUD_TEXT_DETECTION);
-    options.add(CLOUD_DOCUMENT_TEXT_DETECTION);
-    // Creating adapter for featureSpinner
-    ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, R.layout.spinner_style, options);
-    // Drop down layout style - list view with radio button
-    dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    // attaching data adapter to spinner
-    featureSpinner.setAdapter(dataAdapter);
-    featureSpinner.setOnItemSelectedListener(
-        new OnItemSelectedListener() {
+//    Spinner featureSpinner = findViewById(R.id.featureSelector);
+//    List<String> options = new ArrayList<>();
+//    options.add(CLOUD_LABEL_DETECTION);
+//    options.add(CLOUD_LANDMARK_DETECTION);
+//    options.add(CLOUD_TEXT_DETECTION);
+//    options.add(CLOUD_DOCUMENT_TEXT_DETECTION);
+//    // Creating adapter for featureSpinner
+//    ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, R.layout.spinner_style, options);
+//    // Drop down layout style - list view with radio button
+//    dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//    // attaching data adapter to spinner
+//    featureSpinner.setAdapter(dataAdapter);
+//    featureSpinner.setOnItemSelectedListener(
+//        new OnItemSelectedListener() {
+//
+//          @Override
+//          public void onItemSelected(
+//                  AdapterView<?> parentView, View selectedItemView, int pos, long id) {
+//            selectedMode = parentView.getItemAtPosition(pos).toString();
+//            createImageProcessor();
+//            tryReloadAndDetectInImage();
+//          }
+//
+//          @Override
+//          public void onNothingSelected(AdapterView<?> arg0) {}
+//        });
 
-          @Override
-          public void onItemSelected(
-                  AdapterView<?> parentView, View selectedItemView, int pos, long id) {
-            selectedMode = parentView.getItemAtPosition(pos).toString();
-            createImageProcessor();
-            tryReloadAndDetectInImage();
-          }
-
-          @Override
-          public void onNothingSelected(AdapterView<?> arg0) {}
-        });
+    selectedMode = CLOUD_DOCUMENT_TEXT_DETECTION;
+    createImageProcessor();
+    tryReloadAndDetectInImage();
   }
 
   private void populateSizeSelector() {
-    Spinner sizeSpinner = findViewById(R.id.sizeSelector);
-    List<String> options = new ArrayList<>();
-    options.add(SIZE_PREVIEW);
-    options.add(SIZE_1024_768);
-    options.add(SIZE_640_480);
-
-    // Creating adapter for featureSpinner
-    ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, R.layout.spinner_style, options);
-    // Drop down layout style - list view with radio button
-    dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    // attaching data adapter to spinner
-    sizeSpinner.setAdapter(dataAdapter);
-    sizeSpinner.setOnItemSelectedListener(
-        new OnItemSelectedListener() {
-
-          @Override
-          public void onItemSelected(
-                  AdapterView<?> parentView, View selectedItemView, int pos, long id) {
-            selectedSize = parentView.getItemAtPosition(pos).toString();
-            tryReloadAndDetectInImage();
-          }
-
-          @Override
-          public void onNothingSelected(AdapterView<?> arg0) {}
-        });
+//    Spinner sizeSpinner = findViewById(R.id.sizeSelector);
+//    List<String> options = new ArrayList<>();
+//    options.add(SIZE_PREVIEW);
+//    options.add(SIZE_1024_768);
+//    options.add(SIZE_640_480);
+//
+//    // Creating adapter for featureSpinner
+//    ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, R.layout.spinner_style, options);
+//    // Drop down layout style - list view with radio button
+//    dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//    // attaching data adapter to spinner
+//    sizeSpinner.setAdapter(dataAdapter);
+//    sizeSpinner.setOnItemSelectedListener(
+//        new OnItemSelectedListener() {
+//
+//          @Override
+//          public void onItemSelected(
+//                  AdapterView<?> parentView, View selectedItemView, int pos, long id) {
+//            selectedSize = parentView.getItemAtPosition(pos).toString();
+//            tryReloadAndDetectInImage();
+//          }
+//
+//          @Override
+//          public void onNothingSelected(AdapterView<?> arg0) {}
+//        });
+    selectedSize = SIZE_PREVIEW;
+    tryReloadAndDetectInImage();
   }
 
   @Override
@@ -377,5 +412,9 @@ public final class StillImageActivity extends AppCompatActivity {
       default:
         throw new IllegalStateException("Unknown selectedMode: " + selectedMode);
     }
+  }
+
+  public void getImageData(List<String> listItems){
+
   }
 }

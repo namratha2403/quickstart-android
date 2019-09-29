@@ -55,6 +55,22 @@
         android:layout_height="wrap_content"
         android:layout_gravity="left"/>
 
+    <Button
+        android:id="@+id/enter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="Enter" />
+
+    <Button
+        android:id="@+id/report"
+        android:layout_width="52dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/controlPanel"
+        android:layout_alignBottom="@+id/control"
+        android:layout_gravity="center"
+        android:drawableLeft="?attr/actionModePasteDrawable" />
+
   </FrameLayout>
 
 </RelativeLayout>

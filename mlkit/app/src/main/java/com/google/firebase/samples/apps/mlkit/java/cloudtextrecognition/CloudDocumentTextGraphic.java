@@ -33,13 +33,13 @@ public class CloudDocumentTextGraphic extends Graphic {
 
   private final Paint rectPaint;
   private final Paint textPaint;
-  private final FirebaseVisionDocumentText.Symbol symbol;
+  private final FirebaseVisionDocumentText.Word word;
   private final GraphicOverlay overlay;
 
-  CloudDocumentTextGraphic(GraphicOverlay overlay, FirebaseVisionDocumentText.Symbol symbol) {
+  CloudDocumentTextGraphic(GraphicOverlay overlay, FirebaseVisionDocumentText.Word word) {
     super(overlay);
 
-    this.symbol = symbol;
+    this.word = word;
     this.overlay = overlay;
 
     rectPaint = new Paint();
@@ -55,12 +55,12 @@ public class CloudDocumentTextGraphic extends Graphic {
   /** Draws the text block annotations for position, size, and raw value on the supplied canvas. */
   @Override
   public void draw(Canvas canvas) {
-    if (symbol == null) {
+    if (word == null) {
       throw new IllegalStateException("Attempting to draw a null text.");
     }
 
-        Rect rect = symbol.getBoundingBox();
+        Rect rect = word.getBoundingBox();
         canvas.drawRect(rect, rectPaint);
-        canvas.drawText(symbol.getText(), rect.left, rect.bottom, textPaint);
+        canvas.drawText(word.getText(), rect.left, rect.bottom, textPaint);
   }
 }
